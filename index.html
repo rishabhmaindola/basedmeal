@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BasedMeal | Join The Waitlist</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="./public/css/styles.css">
+    <link rel="icon" type="image/png" sizes="32x32" href="./public/assets/bm-favicon.png">
+</head>
+
+<body class="bg-black text-gray-100">
+
+    <div id="splashScreen"
+        class="fixed inset-0 flex flex-col items-center justify-center w-full space-y-4 bg-black z-50 opacity-100">
+        <div class="w-16 h-16 sm:w-24 sm:h-24 rounded-2xl bg-black flex items-center justify-center shadow-lg ">
+            <img id="splashLogo" src="./public/assets/bm-logo.png" alt="BasedMeal logo"
+                class="w-12 h-12 sm:w-18 sm:h-18 object-contain" />
+        </div>
+    </div>
+
+    <header class="p-4 sm:p-5 flex items-center justify-between">
+        <div class="flex items-center px-2 sm:px-5">
+            <h1 class="text-2xl sm:text-3xl font-bold tracking-wide text-white flex">based<p
+                    class="text-yellow-300 text-2xl sm:text-3xl">Meal</p>
+            </h1>
+        </div>
+        <button onclick="document.getElementById('waitlist').scrollIntoView({ behavior: 'smooth' });"
+            class="bg-white rounded-full font-semibold text-black hover:bg-gray-300 hover:ring-yellow-300 px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm">
+            Join Waitlist
+        </button>
+    </header>
+
+    <div id="waitlist"
+        class="min-h-screen flex items-center justify-center px-4 sm:px-6 relative overflow-hidden nutrition-bg py-10">
+        <div
+            class="absolute right-1/4 top-1/2 transform -translate-y-1/3 w-[200px] h-[200px] sm:w-[300px] sm:h-[300px] bg-zinc-200 opacity-20 rounded-full blur-3xl pointer-events-none z-0">
+        </div>
+        <div class="max-w-lg w-full items-center justify-center text-center space-y-6 sm:space-y-10 relative z-10">
+            <h1 id="headline" class="text-2xl sm:text-3xl md:text-5xl font-bold text-center sm:text-left text-zinc-200">
+                Personalized Nutrition
+                Powered
+                By <span
+                    class="inline bg-gradient-to-r from-yellow-300 to-yellow-400 bg-clip-text text-transparent">Intelligence</span>
+            </h1>
+
+            <p id="marketing"
+                class="text-lg sm:text-xl md:text-2xl text-zinc-200 font-semibold tracking-wider text-center sm:text-left uppercase">
+                India's
+                first
+                <strong class="text-yellow-300">AI Meal Planner</strong>
+            </p>
+
+            <div class="space-y-4">
+                <div class="flex justify-center space-x-6 mt-4 sm:mt-6">
+                    <a href="https://www.instagram.com/_basedme/" target="_blank" rel="noopener noreferrer"
+                        class="text-gray-400 hover:text-pink-600 transition">
+                        <i class="fab fa-instagram text-lg sm:text-xl"></i>
+                    </a>
+                    <a href="https://x.com/BasedMeal" target="_blank" rel="noopener noreferrer"
+                        class="text-gray-400 hover:text-zinc-100 transition">
+                        <i class="fab fa-x text-lg sm:text-xl"></i>
+                    </a>
+                </div>
+            </div>
+
+            <form id="optinForm"
+                class="mt-6 sm:mt-8 md:mt-10 flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-4">
+                <input type="email" id="emailInput" placeholder="Your email address" required
+                    class="w-full sm:flex-1 px-4 py-3 rounded bg-white text-black placeholder-gray-700 focus:outline-none focus:ring-2 focus:ring-white text-sm sm:text-base" />
+                <button type="submit" id="submitBtn"
+                    class="w-full sm:w-auto px-6 py-3 bg-gradient-to-br from-pink-500 to-purple-500 hover:from-pink-400 hover:to-purple-400 rounded font-semibold transition text-sm sm:text-base flex items-center justify-center min-w-32 disabled:opacity-50 disabled:cursor-not-allowed">
+                    <span id="buttonText" class="text-zinc-100">Join Waitlist</span>
+                    <span id="spinner" class="hidden ml-2">
+                        <svg class="animate-spin h-5 w-5 text-black" xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">
+                            </circle>
+                            <path class="opacity-75" fill="currentColor"
+                                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                            </path>
+                        </svg>
+                    </span>
+                </button>
+            </form>
+
+            <div id="formResponse" class="hidden mt-4 sm:mt-6 p-4 rounded-lg bg-gray-900 border border-gray-700">
+                <p id="responseMessage" class="text-center text-white text-sm sm:text-base"></p>
+                <div id="retryContainer"></div>
+            </div>
+            <p id="subhead" class="text-sm sm:text-base text-zinc-300 text-center sm:text-left mt-4 sm:mt-6">
+                Join the waitlist for & get early access to AI-powered meal
+            </p>
+        </div>
+    </div>
+
+    <section id="learnMore"
+        class="dot-background min-h-screen flex flex-col items-end justify-start px-4 sm:px-6 py-12 sm:py-16 relative overflow-hidden">
+        <div class="absolute inset-0 pointer-events-none hidden lg:block xl:block">
+            <svg class="w-full h-full" viewBox="0 0 1200 800" fill="none">
+                <path d="M-300,380 
+                         C200,380 500,180 500,180 
+                         C500,180 700,80 800,-20
+                         L1200,-20 L1200,-120 L-300,-120 Z" fill="#FFEB3B" opacity="0.8" />
+
+                <path class="animated-line" d="M-300,400 
+                           C200,400 500,200 500,200 
+                           C500,200 700,100 800,0" stroke="#FFFFFF" stroke-width="2" stroke-dasharray="8,6" fill="none"
+                    opacity="0.4" />
+            </svg>
+        </div>
+        <div
+            class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-yellow-300 to-transparent opacity-60">
+        </div>
+
+        <h1
+            class="text-2xl sm:text-3xl md:text-4xl font-bold text-black leading-tight text-center sm:text-left w-full sm:absolute sm:top-12 sm:left-12 mb-8 sm:mb-0">
+            Real fitness doesn't stop at the gym
+            <span class="text-black block mt-2">it's sustained by what you eat.</span>
+        </h1>
+
+        <div
+            class="text-lg leading-relaxed flex flex-col sm:flex-row items-center sm:space-x-4 w-full sm:w-2/5 mt-8 sm:mt-0">
+            <img src="./public/assets/bm-logo.png" alt="BasedMeal logo"
+                class="w-20 h-20 sm:w-28 sm:h-28 object-contain mb-4 sm:mb-0" />
+            <p
+                class="font-bold text-zinc-100 text-xl sm:text-2xl md:text-3xl text-center sm:text-left mb-4 uppercase leading-relaxed">
+                makes nutrition <br /> effortless
+            </p>
+        </div>
+
+        <div class="text-lg leading-relaxed flex space-x-4 w-full sm:w-2/5 pr-0 sm:pr-5 mt-6 sm:mt-0">
+            <p class="font-semibold text-zinc-200 text-center sm:text-left text-lg sm:text-xl md:text-2xl w-full">
+                so you can focus on living
+                <span id="typewriter-text" class="typewriter-text border-r-2 border-yellow-300 text-yellow-300 "></span>
+            </p>
+        </div>
+
+        <div class="mt-8 sm:mt-auto pt-6 w-full">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+                <div
+                    class="bg-gradient-to-br from-zinc-800 to-zinc-900 rounded-xl p-4 sm:p-6 shadow-xl border border-zinc-700 hover:border-yellow-400 hover:shadow-yellow-500/20 hover:shadow-lg transition-all duration-300 flex flex-col items-center text-center group">
+                    <div
+                        class="flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-gradient-to-br from-yellow-400 to-amber-500 mb-3 sm:mb-4 group-hover:scale-110 transition-transform duration-300">
+                        <div class="text-zinc-900 text-lg sm:text-xl">🔥</div>
+                    </div>
+                    <h3 class="text-base sm:text-lg font-bold text-white mb-2 sm:mb-3">Smart Calorie Counting</h3>
+                    <p class="text-gray-300 text-xs sm:text-sm leading-relaxed">
+                        Automatic calorie tracking with precision. Our system calculates exact nutritional values for
+                        every meal.
+                    </p>
+                </div>
+
+                <div
+                    class="bg-gradient-to-br from-zinc-800 to-zinc-900 rounded-xl p-4 sm:p-6 shadow-xl border border-zinc-700 hover:border-yellow-400 hover:shadow-yellow-500/20 hover:shadow-lg transition-all duration-300 flex flex-col items-center text-center group">
+                    <div
+                        class="flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-gradient-to-br from-yellow-400 to-amber-500 mb-3 sm:mb-4 group-hover:scale-110 transition-transform duration-300">
+                        <div class="text-zinc-900 text-lg sm:text-xl">📊</div>
+                    </div>
+                    <h3 class="text-base sm:text-lg font-bold text-white mb-2 sm:mb-3">Advanced Macro Tracking</h3>
+                    <p class="text-gray-300 text-xs sm:text-sm leading-relaxed">
+                        Detailed protein, carbs, and fat monitoring with optimal ratios for your goals.
+                    </p>
+                </div>
+
+                <div
+                    class="bg-gradient-to-br from-zinc-800 to-zinc-900 rounded-xl p-4 sm:p-6 shadow-xl border border-zinc-700 hover:border-yellow-400 hover:shadow-yellow-500/20 hover:shadow-lg transition-all duration-300 flex flex-col items-center text-center group">
+                    <div
+                        class="flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-gradient-to-br from-yellow-400 to-amber-500 mb-3 sm:mb-4 group-hover:scale-110 transition-transform duration-300">
+                        <div class="text-zinc-900 text-lg sm:text-xl">🎯</div>
+                    </div>
+                    <h3 class="text-base sm:text-lg font-bold text-white mb-2 sm:mb-3">Goal-Based Diet Alignment</h3>
+                    <p class="text-gray-300 text-xs sm:text-sm leading-relaxed">
+                        Whether it's weight loss, muscle gain, or balanced nutrition — BasedMeal dynamically adjusts.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="dot-background py-12 sm:py-16 px-4 sm:px-6">
+        <div class="max-w-7xl mx-auto">
+            <h3 class="text-2xl sm:text-3xl md:text-4xl font-bold text-center text-white mb-8 sm:mb-12">And So Much
+                More...</h3>
+
+            <!-- Diet Cards Section -->
+            <div
+                class="flex flex-col md:flex-row items-center min-h-auto md:min-h-[500px] gap-6 sm:gap-8 mb-12 sm:mb-16">
+                <div class="md:w-1/2 w-full">
+                    <div class="max-w-4xl mx-auto">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                            <!-- Vegetarian Card -->
+                            <div
+                                class="relative border-2 sm:border-4 border-green-500 rounded-xl sm:rounded-2xl p-4 sm:p-6 text-white shadow-lg transition-all duration-500 hover:scale-105 backdrop-blur-sm overflow-hidden group">
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-0 group-hover:opacity-20 transition-opacity duration-500 rounded-xl sm:rounded-2xl">
+                                </div>
+                                <div class="text-center relative z-10">
+                                    <div class="text-2xl sm:text-3xl mb-2 sm:mb-3 drop-shadow-md">🥗</div>
+                                    <h4 class="font-bold text-lg sm:text-xl mb-1 sm:mb-2 tracking-wide">Vegetarian</h4>
+                                    <p class="text-xs sm:text-sm opacity-90 leading-snug">Fresh, plant-based meals with
+                                        wholesome dairy & eggs.</p>
+                                </div>
+                            </div>
+
+                            <!-- Vegan Card -->
+                            <div
+                                class="relative border-2 sm:border-4 border-yellow-500 rounded-xl sm:rounded-2xl p-4 sm:p-6 text-white shadow-lg transition-all duration-500 hover:scale-105 backdrop-blur-sm overflow-hidden group">
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-0 group-hover:opacity-20 transition-opacity duration-500 rounded-xl sm:rounded-2xl">
+                                </div>
+                                <div class="text-center relative z-10">
+                                    <div class="text-2xl sm:text-3xl mb-2 sm:mb-3 drop-shadow-md">🌱</div>
+                                    <h4 class="font-bold text-lg sm:text-xl mb-1 sm:mb-2 tracking-wide">Vegan</h4>
+                                    <p class="text-xs sm:text-sm opacity-90 leading-snug">100% plant-based, no animal
+                                        products</p>
+                                </div>
+                            </div>
+
+                            <!-- High Protein Card -->
+                            <div
+                                class="relative border-2 sm:border-4 border-purple-500 rounded-xl sm:rounded-2xl p-4 sm:p-6 text-white shadow-lg transition-all duration-500 hover:scale-105 backdrop-blur-sm overflow-hidden group">
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-0 group-hover:opacity-20 transition-opacity duration-500 rounded-xl sm:rounded-2xl">
+                                </div>
+                                <div class="text-center relative z-10">
+                                    <div class="text-2xl sm:text-3xl mb-2 sm:mb-3 drop-shadow-md">💪</div>
+                                    <h4 class="font-bold text-lg sm:text-xl mb-1 sm:mb-2 tracking-wide">High Protein
+                                    </h4>
+                                    <p class="text-xs sm:text-sm opacity-90 leading-snug">Muscle-building meals with
+                                        extra protein</p>
+                                </div>
+                            </div>
+
+                            <!-- Keto Card -->
+                            <div
+                                class="relative border-2 sm:border-4 border-pink-500 rounded-xl sm:rounded-2xl p-4 sm:p-6 text-white shadow-lg transition-all duration-500 hover:scale-105 backdrop-blur-sm overflow-hidden group">
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-0 group-hover:opacity-20 transition-opacity duration-500 rounded-xl sm:rounded-2xl">
+                                </div>
+                                <div class="text-center relative z-10">
+                                    <div class="text-2xl sm:text-3xl mb-2 sm:mb-3 drop-shadow-md">🥑</div>
+                                    <h4 class="font-bold text-lg sm:text-xl mb-1 sm:mb-2 tracking-wide">Keto</h4>
+                                    <p class="text-xs sm:text-sm opacity-90 leading-snug">Low-carb, high-fat for fat
+                                        burning</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    class="text-lg leading-relaxed flex flex-col items-center text-center md:text-right space-x-4 md:w-1/2 mt-6 md:mt-0">
+                    <h1 class="text-xl sm:text-2xl md:text-3xl font-bold tracking-wide mb-4 sm:mb-6">Choose from various
+                        Diets</h1>
+                    <p class="font-bold text-zinc-100 text-lg sm:text-xl text-center mb-4 leading-relaxed">
+                        Explore a variety of meal plans — <span class="text-yellow-300 font-semibold">Vegetarian</span>,
+                        <span class="text-yellow-300 font-semibold">Vegan</span>,<br class="hidden sm:block" />
+                        <span class="text-yellow-300 font-semibold">High-Protein</span>,
+                        <span class="text-yellow-300 font-semibold">Keto</span>, and more.
+                    </p>
+                    <div class="mt-4 sm:mt-6 text-center">
+                        <div
+                            class="inline-flex flex-col sm:flex-row items-center gap-1 sm:gap-2 bg-zinc-900 border border-white rounded-full px-4 py-2 sm:px-6 sm:py-3">
+                            <span class="text-zinc-100 font-semibold text-xs sm:text-sm">Plus even more options</span>
+                            <span class="text-zinc-200 text-xs">Paleo • Mediterranean • Gluten-Free</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Meal Swapping Section -->
+            <div
+                class="flex flex-col md:flex-row-reverse items-center min-h-auto md:min-h-[500px] gap-6 sm:gap-8 mb-12 sm:mb-16">
+                <div class="md:w-1/2 w-full relative flex items-center justify-center min-h-[300px] sm:min-h-[400px]">
+                    <!-- Tofu Card -->
+                    <div
+                        class="absolute top-4 sm:top-14 -right-4 sm:-right-20 transform z-20 w-4/5 sm:w-3/4 bg-green-200 flex-col justify-between items-center px-3 py-2 sm:px-4 sm:py-2 rounded-xl border-2 sm:border-3 border-green-400 hover:border-green-500 hover:shadow-lg transition-all duration-200 cursor-pointer shadow-md">
+                        <div class="flex items-center justify-between w-full">
+                            <div class="flex-1">
+                                <div class="flex items-center gap-1 sm:gap-2 mb-1">
+                                    <span class="font-semibold text-sm sm:text-md text-slate-800">Tofu</span>
+                                </div>
+                                <div class="text-xs text-slate-500 font-medium mb-2">300g</div>
+                            </div>
+                            <div class="flex items-center gap-2 sm:gap-3">
+                                <span class="font-bold text-xs sm:text-sm text-slate-700">240 kcal</span>
+                            </div>
+                        </div>
+                        <div class="flex justify-between w-full mb-2 sm:mb-3 px-1 sm:px-2">
+                            <div class="text-center">
+                                <span class="text-xs text-slate-500">Protein</span>
+                                <p class="text-xs sm:text-sm font-semibold text-slate-700">35g</p>
+                            </div>
+                            <div class="text-center">
+                                <span class="text-xs text-slate-500">Carbs</span>
+                                <p class="text-xs sm:text-sm font-semibold text-slate-700">25g</p>
+                            </div>
+                            <div class="text-center">
+                                <span class="text-xs text-slate-500">Fat</span>
+                                <p class="text-xs sm:text-sm font-semibold text-slate-700">5g</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chicken Card -->
+                    <div
+                        class="absolute bottom-4 sm:bottom-14 right-2 sm:right-10 transform z-10 w-4/5 sm:w-3/4 bg-red-200 flex-col justify-between items-center px-3 py-2 sm:px-4 sm:py-2 rounded-xl border-2 sm:border-3 border-red-200 bg-red-100 hover:border-red-300 hover:shadow-lg transition-all duration-200 cursor-pointer shadow-md">
+                        <div class="flex items-center justify-between w-full">
+                            <div class="flex-1">
+                                <div class="flex items-center gap-1 sm:gap-2 mb-1">
+                                    <span class="font-semibold text-sm sm:text-md text-slate-800">Chicken Breast</span>
+                                </div>
+                                <div class="text-xs text-slate-500 font-medium mb-2">150g</div>
+                            </div>
+                            <div class="flex items-center gap-2 sm:gap-3">
+                                <span class="font-bold text-xs sm:text-sm text-slate-700">248 kcal</span>
+                            </div>
+                        </div>
+                        <div class="flex justify-between w-full mb-2 sm:mb-3 px-1 sm:px-2">
+                            <div class="text-center">
+                                <span class="text-xs text-slate-500">Protein</span>
+                                <p class="text-xs sm:text-sm font-semibold text-slate-700">35g</p>
+                            </div>
+                            <div class="text-center">
+                                <span class="text-xs text-slate-500">Carbs</span>
+                                <p class="text-xs sm:text-sm font-semibold text-slate-700">5g</p>
+                            </div>
+                            <div class="text-center">
+                                <span class="text-xs text-slate-500">Fat</span>
+                                <p class="text-xs sm:text-sm font-semibold text-slate-700">0g</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Swap Arrow -->
+                    <div
+                        class="absolute left-8 sm:left-20 z-30 top-1/3 transform translate-x-4 sm:translate-x-12 translate-y-0">
+                        <div id="swapArrow"
+                            class="bg-white rounded-full p-1 sm:p-2 shadow-xl border border-gray-300 arrow-pulse">
+                            <svg class="w-6 h-6 sm:w-8 sm:h-8 text-purple-500" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="md:w-1/2 w-full space-y-4 mt-6 md:mt-0">
+                    <h1
+                        class="text-xl sm:text-2xl md:text-3xl font-bold tracking-wide mb-4 sm:mb-6 text-center md:text-left">
+                        Personalize Every Meal — Instantly.</h1>
+                    <p class="text-gray-300 text-base sm:text-lg leading-relaxed text-center md:text-left">
+                        <span class="text-yellow-300 font-semibold">Swap meals effortlessly.</span>
+                        BasedMeal recalculates your macros in real time.
+                    </p>
+                    <div class='flex space-x-2 py-3 sm:py-5'>
+                        <input type="text" placeholder='Replace chicken with vegetarian alternative'
+                            class='px-3 sm:px-5 py-2 sm:py-3 w-full rounded-lg sm:rounded-xl text-sm sm:text-lg bg-zinc-200 placeholder-zinc-800 border border-purple-300 shadow-lg text-zinc-900 focus:outline-none focus:border-purple-400 focus:ring-2 focus:ring-purple-500/20' />
+                        <button
+                            class='py-2 sm:py-3 px-3 sm:px-5 rounded-lg sm:rounded-xl bg-purple-500 hover:from-purple-600 hover:to-pink-600 cursor-pointer transition-all duration-200 text-white shadow-md flex items-center justify-center hover:scale-105'>
+                            <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Grocery Planning Section -->
+            <div
+                class="flex flex-col md:flex-row items-center min-h-auto md:min-h-[500px] gap-6 sm:gap-8 mb-12 sm:mb-16">
+                <div class="md:w-1/2 w-full">
+                    <div class="feature-illustration">
+                        <div
+                            class="max-w-md mx-auto bg-gradient-to-br from-zinc-100 to-zinc-200 border-2 border-zinc-800 rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-xl">
+                            <div class="text-center mb-4 sm:mb-6">
+                                <h3 class="text-lg sm:text-xl font-bold text-zinc-800 uppercase">Grocery Basket</h3>
+                                <p class="text-xs sm:text-sm font-semibold text-zinc-600 mt-1">For 3 days x 2 people</p>
+                            </div>
+
+                            <div class="space-y-2 sm:space-y-3 mb-4 sm:mb-6">
+                                <!-- Grocery items with checkboxes -->
+                                <div
+                                    class="flex justify-between items-center bg-white rounded-lg p-2 sm:p-3 border border-purple-200 shadow-sm transition-all duration-200 has-[:checked]:bg-purple-50 has-[:checked]:border-purple-300">
+                                    <div class="flex items-center gap-2 sm:gap-3">
+                                        <div class="flex items-center justify-center relative">
+                                            <input type="checkbox"
+                                                class="w-4 h-4 sm:w-5 sm:h-5 text-purple-600 bg-white border-2 border-gray-300 rounded focus:ring-purple-500 focus:ring-2 checked:bg-purple-600 checked:border-purple-600 appearance-none">
+                                            <svg class="absolute w-2 h-2 sm:w-3 sm:h-3 text-white opacity-0 pointer-events-none check-icon"
+                                                fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
+                                                    d="M5 13l4 4L19 7"></path>
+                                            </svg>
+                                        </div>
+                                        <div>
+                                            <p class="font-semibold text-zinc-800 text-xs sm:text-sm">Chicken Breast</p>
+                                            <p class="text-xs font-medium text-zinc-500">450g total</p>
+                                        </div>
+                                    </div>
+                                    <div class="text-right">
+                                        <p class="font-bold text-zinc-800 text-xs sm:text-sm">150g x 3</p>
+                                        <p class="text-xs font-medium text-zinc-500">35g protein</p>
+                                    </div>
+                                </div>
+
+                                <!-- Repeat for other grocery items -->
+
+                            </div>
+
+                            <div class="flex gap-2 sm:gap-3">
+                                <button
+                                    class="flex-1 bg-gradient-to-r from-purple-500 to-indigo-600 hover:from-purple-400 hover:to-indigo-500 text-white font-semibold py-2 sm:py-3 px-3 sm:px-4 rounded-lg sm:rounded-xl transition-all duration-200 transform hover:scale-105 shadow-lg flex items-center justify-center gap-1 sm:gap-2 text-xs sm:text-sm">
+                                    <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10" />
+                                    </svg>
+                                    Export
+                                </button>
+                                <button
+                                    class="flex-1 bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 text-white font-semibold py-2 sm:py-3 px-3 sm:px-4 rounded-lg sm:rounded-xl transition-all duration-200 transform hover:scale-105 shadow-lg flex items-center justify-center gap-1 sm:gap-2 text-xs sm:text-sm">
+                                    <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+                                    </svg>
+                                    Share
+                                </button>
+                            </div>
+
+                            <div class="text-center">
+                                <p class="text-xs sm:text-sm font-bold text-zinc-900 pt-3 sm:pt-4">Automatically
+                                    calculated based on your meal plan</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="md:w-1/2 w-full mt-6 md:mt-0">
+                    <h1
+                        class="text-xl sm:text-2xl md:text-3xl font-bold tracking-wide mb-4 sm:mb-6 text-center md:text-left">
+                        Plan Your Week</h1>
+                    <p class="text-inc-200 font-medium text-base sm:text-lg leading-relaxed text-center md:text-left">
+                        Simply choose how many days you're planning for, and <span
+                            class="font-semibold text-yellow-300">BasedMeal</span>
+                        will instantly generate your personalized grocery list.
+                        <br><br>
+                        You can <span class="text-yellow-300 font-semibold">edit, export, or print</span> it anytime.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="why-it-works" class="py-16 bg-black px-4 sm:px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-12 sm:mb-16">
+                <h2 class="text-2xl sm:text-3xl font-bold text-white">The Smarter Approach to Nutrition</h2>
+                <p class="mt-3 text-sm text-zinc-300 max-w-3xl mx-auto">
+                    Stop the endless tracking and logging. BasedMeal uses science-backed calculations from the start, so
+                    you get precise nutrition without daily hassle.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8 relative z-10">
+                <!-- Step 1 -->
+                <div class="text-center bg-gray-900 p-6 rounded-lg hover:bg-gray-800 transition border border-gray-700">
+                    <div
+                        class="w-16 h-16 bg-yellow-300 text-black rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4 shadow-sm border border-yellow-300">
+                        1
+                    </div>
+                    <h3 class="text-xl font-semibold text-white mb-2">Calculate First, Eat Perfectly</h3>
+                    <p class="text-gray-300 text-sm">
+                        We start with your exact TDEE (Total Daily Energy Expenditure) and adjust calories ±200-500
+                        based on your goals. No guessing, no endless tracking.
+                    </p>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="text-center bg-gray-900 p-6 rounded-lg hover:bg-gray-800 transition border border-gray-700">
+                    <div
+                        class="w-16 h-16 bg-yellow-300 text-black rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4 shadow-sm border border-yellow-300">
+                        2
+                    </div>
+                    <h3 class="text-xl font-semibold text-white mb-2">Smart Macro Allocation</h3>
+                    <p class="text-gray-300 text-sm">
+                        Protein, carbs, and fats are precisely calculated from day one. Your meals are built with
+                        perfect macro ratios for your specific body and goals.
+                    </p>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="text-center bg-gray-900 p-6 rounded-lg hover:bg-gray-800 transition border border-gray-700">
+                    <div
+                        class="w-16 h-16 bg-yellow-300 text-black rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4 shadow-sm border border-yellow-300">
+                        3
+                    </div>
+                    <h3 class="text-xl font-semibold text-white mb-2">Goal-Optimized Meal Plans</h3>
+                    <p class="text-gray-300 text-sm">
+                        Whether you want to lose fat, build muscle, or maintain, we create your perfect calorie deficit
+                        or surplus automatically. Just follow and see results.
+                    </p>
+                </div>
+            </div>
+
+            <div
+                class="mt-12 bg-gradient-to-r from-zinc-700 to-zinc-800 border border-zinc-200 rounded-xl p-6 max-w-3xl mx-auto">
+                <div class="text-center">
+                    <h4 class="text-yellow-300 font-bold text-lg mb-2">Why This Works Better</h4>
+                    <p class="text-zinc-200 text-sm">
+                        Traditional apps make you track everything manually. We calculate your exact needs upfront using
+                        TDEE science,
+                        then build meals that automatically match your goals. No daily logging, no confusion — just
+                        results.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <section id="how-it-works" class="py-16 bg-black px-4 sm:px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-12 sm:mb-16">
+                <h2 class="text-3xl font-bold text-white">How It Works</h2>
+                <p class="mt-4 text-gray-300 max-w-3xl text-center mx-auto">
+                    See how BasedMeal crafts your personalized meal plan — step by step,<br /> powered by AI and built
+                    around your goals.
+                </p>
+            </div>
+
+
+            <div class=" flex flex-col md:flex-row">
+
+                <div class="flex flex-col space-y-16 md:ml-24 z-10">
+                    <div class="flex items-start md:items-center md:space-x-6">
+                        <div
+                            class="flex-shrink-0 w-12 h-12 rounded-full bg-yellow-300 flex items-center justify-center text-black text-2xl shadow-lg z-10">
+                            <i class="fas fa-bullseye"></i>
+                        </div>
+                        <div class="mt-2 md:mt-0">
+                            <h3 class="text-xl font-semibold text-white">Set Your Goals</h3>
+                            <p class="text-gray-300 mt-1">
+                                Tell us your health objectives, diet preferences, and lifestyle habits, etc.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start md:items-center md:space-x-6">
+                        <div
+                            class="flex-shrink-0 w-12 h-12 rounded-full bg-red-400 flex items-center justify-center text-black text-2xl shadow-lg z-10">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <div class="mt-2 md:mt-0">
+                            <h3 class="text-xl font-semibold text-white">AI Generates Plan</h3>
+                            <p class="text-gray-300 mt-1">
+                                Our AI creates a personalized meal plan based on your inputs and goals.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start md:items-center md:space-x-6">
+                        <div
+                            class="flex-shrink-0 w-12 h-12 rounded-full bg-green-400 flex items-center justify-center text-black text-2xl shadow-lg z-10">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="mt-2 md:mt-0">
+                            <h3 class="text-xl font-semibold text-white">Track Progress</h3>
+                            <p class="text-gray-300 mt-1">
+                                Monitor your nutrition intake and see your health improve effortlessly.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start md:items-center md:space-x-6">
+                        <div
+                            class="flex-shrink-0 w-12 h-12 rounded-full bg-purple-400 flex items-center justify-center text-black text-2xl shadow-lg z-10">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <div class="mt-2 md:mt-0">
+                            <h3 class="text-xl font-semibold text-white">Achieve Results</h3>
+                            <p class="text-gray-300 mt-1">
+                                Reach your health goals while staying consistent with a hassle-free meal plan.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="py-20 bg-gradient-to-br from-yellow-300 via-yellow-400 to-amber-400 text-black text-center">
+        <div class="max-w-4xl mx-auto px-4">
+            <div class="inline-block mb-8">
+                <span class="bg-black text-zinc-200 px-4 py-2 rounded-full text-sm font-bold">
+                    LIMITED TIME OFFER
+                </span>
+            </div>
+
+            <h2 class="text-3xl font-bold mb-6">
+                Early Access Perks
+            </h2>
+
+            <p class="text-lg md:text-xl max-w-2xl mx-auto mb-8 leading-relaxed">
+                Join the waitlist today and unlock <span class="font-semibold">exclusive early-user perks for first
+                    <span class="text-red-700 font-bold">200 users</span> —
+                    <span class="font-medium text-red-700">discounted pricing</span> and
+                    <span class="font-medium text-red-700">priority access</span> to new features.
+            </p>
+
+            <div class="py-4">
+                <button onclick="document.getElementById('waitlist').scrollIntoView({ behavior: 'smooth' });"
+                    class="bg-black text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-gray-800 transition-colors duration-300">
+                    Join the Waitlist
+                </button>
+            </div>
+
+            <div class="mt-8 grid grid-cols-3 pt-8 gap-4 max-w-md mx-auto">
+                <div class="text-center">
+                    <div class="text-2xl sm:text-3xl md:text-4xl font-bold text-zinc-900">72</div>
+                    <div class="text-sm sm:text-base md:text-lg text-zinc-800 font-medium whitespace-nowrap">Spots Left
+                    </div>
+                </div>
+                <div class="text-center">
+                    <div class="text-2xl sm:text-3xl md:text-4xl font-bold text-zinc-900">81</div>
+                    <div class="text-sm sm:text-base md:text-lg text-zinc-800 font-medium whitespace-nowrap">Days Left
+                    </div>
+                </div>
+                <div class="text-center">
+                    <div class="text-2xl sm:text-3xl md:text-4xl font-bold text-zinc-900">128</div>
+                    <div class="text-sm sm:text-base md:text-lg text-zinc-800 font-medium whitespace-nowrap">Already
+                        Joined</div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+    <section class="bg-black px-4 sm:px-6">
+        <div id="faq" class="container px-4 py-10 mx-auto sm:px-6">
+            <h1 class="text-2xl font-semibold text-white lg:text-3xl">Frequently Asked Questions</h1>
+
+            <hr class="my-6 border-gray-700">
+
+            <div class="space-y-8">
+                <div class="faq-item">
+                    <button class="flex items-center justify-between w-full focus:outline-none">
+                        <h1 class="text-md text-white text-left">What is BasedMeal?</h1>
+                        <svg class="flex-shrink-0 w-5 h-5 sm:w-6 sm:h-6 text-yellow-300 transition-transform duration-300"
+                            fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v12m6-6H6">
+                            </path>
+                        </svg>
+                    </button>
+
+                    <div class="faq-content mt-4 hidden">
+                        <div class="flex">
+                            <span class="border-l-2 border-yellow-300"></span>
+                            <p class="max-w-3xl px-4 text-gray-300 text-sm sm:text-base">
+                                BasedMeal is an AI-powered nutrition platform that creates personalized meal plans based
+                                on
+                                your health goals, dietary preferences, and lifestyle. Our technology helps you make
+                                better food choices and achieve sustainable results.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <hr class="my-8 border-gray-700">
+
+                <div class="faq-item">
+                    <button class="flex items-center justify-between w-full focus:outline-none">
+                        <h1 class="text-md text-white text-left">Is the nutrition data (calories, macros, etc.) in
+                            BasedMeal accurate and reliable?
+                        </h1>
+                        <svg class="flex-shrink-0 w-5 h-5 sm:w-6 sm:h-6 text-yellow-300 transition-transform duration-300"
+                            fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v12m6-6H6">
+                            </path>
+                        </svg>
+                    </button>
+
+                    <div class="faq-content mt-4 hidden">
+                        <div class="flex">
+                            <span class="border-l-2 border-yellow-300"></span>
+                            <p class="max-w-3xl px-4 text-gray-300 text-sm sm:text-base">
+                                Yes. All nutritional values in BasedMeal — including calories, protein, carbs, and fats
+                                —
+                                are sourced from verified global food databases such as the USDA FoodData Central and
+                                other
+                                standardized nutrition sources.
+                                This ensures that every ingredient and meal in your plan reflects real, evidence-based
+                                nutrition data,
+                                so you can track your intake with confidence and consistency.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <hr class="my-8 border-gray-700">
+
+                <div class="faq-item">
+                    <button class="flex items-center justify-between w-full focus:outline-none">
+                        <h1 class="text-md text-white text-left">How is BasedMeal different from other nutrition apps?
+                        </h1>
+                        <svg class="flex-shrink-0 w-5 h-5 sm:w-6 sm:h-6 text-yellow-300 transition-transform duration-300"
+                            fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v12m6-6H6">
+                            </path>
+                        </svg>
+                    </button>
+
+                    <div class="faq-content mt-4 hidden">
+                        <div class="flex">
+                            <span class="border-l-2 border-yellow-300"></span>
+                            <p class="max-w-3xl px-4 text-gray-300 text-sm sm:text-base">
+                                Unlike other nutrition apps, BasedMeal uses advanced AI to create truly personalized
+                                meal
+                                plans that adapt to your preferences, goals, and even your daily schedule. We focus on
+                                sustainable habits rather than restrictive diets.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <hr class="my-8 border-gray-700">
+
+                <div class="faq-item">
+                    <button class="flex items-center justify-between w-full focus:outline-none">
+                        <h1 class="text-md text-white text-left">Do I need to be on a specific diet to use BasedMeal?
+                        </h1>
+                        <svg class="flex-shrink-0 w-5 h-5 sm:w-6 sm:h-6 text-yellow-300 transition-transform duration-300"
+                            fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v12m6-6H6">
+                            </path>
+                        </svg>
+                    </button>
+
+                    <div class="faq-content mt-4 hidden">
+                        <div class="flex">
+                            <span class="border-l-2 border-yellow-300"></span>
+                            <p class="max-w-3xl px-4 text-gray-300 text-sm sm:text-base">
+                                Not at all! BasedMeal works with any dietary preference or restriction—whether you're
+                                vegan, keto, gluten-free, or just trying to eat healthier. We personalize our
+                                recommendations based on your specific needs and preferences.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <hr class="my-8 border-gray-700">
+
+                <div class="faq-item">
+                    <button class="flex items-center justify-between w-full focus:outline-none">
+                        <h1 class="text-md text-white text-left">How does the waitlist work?</h1>
+                        <svg class="flex-shrink-0 w-5 h-5 sm:w-6 sm:h-6 text-yellow-300 transition-transform duration-300"
+                            fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v12m6-6H6">
+                            </path>
+                        </svg>
+                    </button>
+
+                    <div class="faq-content mt-4 hidden">
+                        <div class="flex">
+                            <span class="border-l-2 border-yellow-300"></span>
+                            <p class="max-w-3xl px-4 text-gray-300 text-sm sm:text-base">
+                                By joining our waitlist, you'll be among the first to get access when BasedMeal
+                                launches.
+                                Early users will receive special perks, including discounted pricing and priority
+                                support. We'll also send you exclusive nutrition tips while you wait.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <hr class="my-8 border-gray-700">
+
+    <footer class="flex flex-col w-full items-center py-8 sm:py-12 px-4 sm:px-6 bg-black text-gray-300">
+        <span class="text-xs text-gray-400 mb-4">&copy; 2025 BasedMeal. All rights reserved.</span>
+
+        <div class="flex flex-col items-center justify-center space-y-3 sm:space-y-4 mb-4 sm:mb-6">
+            <img src="./public/assets/bm-logo.png" alt="BasedMeal logo"
+                class="w-12 h-12 sm:w-16 sm:h-16 object-contain" />
+            <p class="text-sm text-gray-300 text-center">Your personalized nutrition journey awaits</p>
+        </div>
+
+        <ul class="flex items-center justify-center flex-wrap gap-3 sm:gap-6 text-gray-400">
+            <li><a href="#waitlist" class="hover:text-white text-xs sm:text-sm">Join Waitlist</a></li>
+            <li><a href="#how-it-works" class="hover:text-white text-xs sm:text-sm">How It Works</a></li>
+            <li><a href="#learnMore" class="hover:text-white text-xs sm:text-sm">Features</a></li>
+            <li><a href="#faq" class="hover:text-white text-xs sm:text-sm">FAQs</a></li>
+        </ul>
+    </footer>
+
+
+    <script src="./public/js/form.js" async defer></script>
+    <script src="./public/js/faq.js" async defer></script>
+    <script src="./public/js/animation.js" async defer></script>
+    <script src="./public/js/effect.js" async defer></script>
+    <script src="./public/js/misc.js" async defer></script>
+
+</body>
+
+</html>

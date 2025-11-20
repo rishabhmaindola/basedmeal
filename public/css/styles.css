@@ -1,0 +1,48 @@
+.dot-background {
+    --dot-bg: black;
+    --dot-color: white;
+    --dot-size: 1px;
+    --dot-space: 22px;
+    background:
+        linear-gradient(90deg, var(--dot-bg) calc(var(--dot-space) - var(--dot-size)), transparent 1%) center / var(--dot-space) var(--dot-space),
+        linear-gradient(var(--dot-bg) calc(var(--dot-space) - var(--dot-size)), transparent 1%) center / var(--dot-space) var(--dot-space),
+        var(--dot-color);
+}
+
+
+.typewriter-text {
+    border-right: 2px solid #fbbf24;
+    padding-right: 2px;
+    animation: blink-caret 0.75s step-end infinite;
+}
+
+@keyframes blink-caret {
+
+    from,
+    to {
+        border-color: transparent
+    }
+
+    50% {
+        border-color: #fbbf24;
+    }
+}
+
+
+.animated-line {
+    animation: flow 3s linear infinite;
+}
+
+.line-2 {
+    animation-delay: 0.5s;
+}
+
+@keyframes flow {
+    to {
+        stroke-dashoffset: -100;
+    }
+}
+
+.feature-illustration {
+    filter: drop-shadow(0 4px 8px rgba(251, 191, 36, 0.2));
+}
