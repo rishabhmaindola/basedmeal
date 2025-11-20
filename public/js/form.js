@@ -82,4 +82,4 @@ function showResponseWithRetry(message, textColorClass) {
     });
 
     retryContainer.appendChild(retryBtn);
-}
+} 
