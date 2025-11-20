@@ -1,18 +1,17 @@
 const form = document.getElementById("optinForm");
-const responseMessage = document.getElementById("responseMessage");
-const formResponse = document.getElementById("formResponse");
 const submitBtn = document.getElementById("submitBtn");
 const buttonText = document.getElementById("buttonText");
 const spinner = document.getElementById("spinner");
-const emailInput = document.getElementById("emailInput");
 const retryContainer = document.getElementById("retryContainer");
+const responseMessage = document.getElementById("responseMessage");
+const formResponse = document.getElementById("formResponse");
 
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzLYMAYL4E79J8ioXEWxGjnaR1yhEoVtaBlQW-T5-MczxUVQqJIm4eTtO0L4J1kYkzT0A/exec";
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzLYMAYL4E79J8ioXEWxGjnaR1yhEoVtaBlQW-T5-MczxUVQqJIm4eTtO0L4J1kYkzT0A/exec';
 
 form.addEventListener("submit", async (e) => {
     e.preventDefault();
-    const email = emailInput.value.trim();
 
+    const email = form.email.value.trim();
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
         showResponse("Please enter a valid email address.", "text-red-500");
         return;
@@ -23,21 +22,32 @@ form.addEventListener("submit", async (e) => {
     spinner.classList.remove("hidden");
 
     try {
-        const formData = new FormData();
-        formData.append("email", email);
-
+        // Send email as JSON
+        const payload = { email: email };
         const response = await fetch(SCRIPT_URL, {
             method: "POST",
-            body: formData
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
         });
 
-        const data = await response.json();
+        const text = await response.text();
+        console.log("STATUS:", response.status);
+        console.log("RAW RESPONSE:", text);
 
-        if (data.status === "success") {
+        let data;
+        try {
+            data = JSON.parse(text);
+            console.log("JSON PARSED:", data);
+        } catch (_) {
+            throw new Error("Response was not JSON");
+        }
+
+        if (data.result === "success") {
             showResponse("Email successfully saved! Thank you.", "text-green-500");
             form.reset();
         } else {
-            throw new Error(data.message || "Failed to save email");
+            const errMsg = data.error || "Failed to save email";
+            throw new Error(errMsg);
         }
 
     } catch (error) {
@@ -55,7 +65,7 @@ function showResponse(message, textColorClass) {
     responseMessage.className = `text-center ${textColorClass}`;
     form.classList.add("hidden");
     formResponse.classList.remove("hidden");
-    retryContainer.innerHTML = ""; 
+    retryContainer.innerHTML = "";
 }
 
 function showResponseWithRetry(message, textColorClass) {
@@ -68,7 +78,7 @@ function showResponseWithRetry(message, textColorClass) {
     retryBtn.addEventListener("click", () => {
         formResponse.classList.add("hidden");
         form.classList.remove("hidden");
-        emailInput.focus();
+        form.email.focus();
     });
 
     retryContainer.appendChild(retryBtn);

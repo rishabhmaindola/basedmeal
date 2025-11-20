@@ -67,9 +67,9 @@
                 </div>
             </div>
 
-            <form id="optinForm"
+            <form id="optinForm"  name="optinForm" 
                 class="mt-6 sm:mt-8 md:mt-10 flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-4">
-                <input type="email" id="emailInput" placeholder="Your email address" required
+                <input name="email" type="email" id="emailInput" placeholder="Your email address" required
                     class="w-full sm:flex-1 px-4 py-3 rounded bg-white text-black placeholder-gray-700 focus:outline-none focus:ring-2 focus:ring-white text-sm sm:text-base" />
                 <button type="submit" id="submitBtn"
                     class="w-full sm:w-auto px-6 py-3 bg-gradient-to-br from-pink-500 to-purple-500 hover:from-pink-400 hover:to-purple-400 rounded font-semibold transition text-sm sm:text-base flex items-center justify-center min-w-32 disabled:opacity-50 disabled:cursor-not-allowed">
@@ -91,6 +91,7 @@
                 <p id="responseMessage" class="text-center text-white text-sm sm:text-base"></p>
                 <div id="retryContainer"></div>
             </div>
+
             <p id="subhead" class="text-sm sm:text-base text-zinc-300 text-center sm:text-left mt-4 sm:mt-6">
                 Join the waitlist for & get early access to AI-powered meal
             </p>
