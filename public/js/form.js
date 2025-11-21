@@ -1,3 +1,4 @@
+const RESEND_API_KEY = 're_6Wawp5Z1_JUXHS2QiFiwbBZP7XecJdjwm';
 const SUPABASE_URL = 'https://bgfirtvqdaeddqttmjeu.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJnZmlydHZxZGFlZGRxdHRtamV1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM3MDQ1NTYsImV4cCI6MjA3OTI4MDU1Nn0.Cib0nGgjHW2nF64pN-Id4lAdHFsDL36bhRLYrGbzUtU';
 const supabaseDB = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
@@ -6,63 +7,91 @@ const form = document.getElementById("optinForm");
 const submitBtn = form.querySelector("button[type='submit']");
 const buttonText = document.getElementById("buttonText");
 const spinner = document.getElementById("spinner");
-const responseMessage = document.getElementById("responseMessage");
+const responseMsg = document.getElementById("responseMessage");
 const formResponse = document.getElementById("formResponse");
 const retryContainer = document.getElementById("retryContainer");
+
 
 form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
     const email = form.email.value.trim();
+    responseMsg.textContent = "";
+    responseMsg.style.color = "white";
 
-    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        showResponse("Please enter a valid email address.", "text-red-500");
+    if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+        responseMsg.textContent = "Please enter a valid email.";
+        responseMsg.style.color = "red";
         return;
     }
 
+    const submitBtn = document.getElementById("submitBtn");
     submitBtn.disabled = true;
-    buttonText.textContent = "Sending...";
-    spinner.classList.remove("hidden");
+    submitBtn.textContent = "Sending...";
 
     try {
-        const { data: existing, error: fetchError } = await supabaseDB
-            .from('basedmeal-waitlist')
-            .select('id')
-            .eq('email', email)
+        const { data: existing } = await supabaseDB
+            .from("basedmeal-waitlist")
+            .select("id")
+            .eq("email", email)
             .maybeSingle();
 
         if (existing) {
-            throw new Error("This email is already registered.");
+            responseMsg.textContent = "This email is already registered.";
+            responseMsg.style.color = "red";
+            return;
         }
 
-        const { data, error } = await supabaseDB
-            .from('basedmeal-waitlist')
-            .insert([{ email }]);
+        const token = crypto.randomUUID();
 
-        if (error) {
-            if (error.message.includes("duplicate key")) {
-                showResponse("This email is already registered.", "text-red-500");
-                return;
-            }
-            throw error;
+        const { error: insertError } = await supabaseDB
+            .from("basedmeal-waitlist")
+            .insert([{
+                email,
+                verification_token: token,
+                verified: false
+            }]);
+
+        if (insertError) {
+            responseMsg.textContent = "Failed to save email. Try again.";
+            responseMsg.style.color = "red";
+            return;
         }
 
-        showResponse("Email successfully saved! Thank you.", "text-green-500");
+        const { data: funcResult, error: funcError } = await supabaseDB
+            .functions
+            .invoke("send-verification", {
+                body: { email, token }
+            });
+
+        if (funcError) {
+            responseMsg.textContent =
+                "Email saved, but failed to send verification email.";
+            responseMsg.style.color = "red";
+            return;
+        }
+
+
+        responseMsg.textContent =
+            "Email saved! Check your inbox for a verification link.";
+        responseMsg.style.color = "green";
         form.reset();
 
     } catch (err) {
-        console.error(err);
-        showResponseWithRetry(err.message || "Something went wrong.", "text-red-500");
+        responseMsg.textContent = err.message || "Something went wrong.";
+        responseMsg.style.color = "red";
+
     } finally {
         submitBtn.disabled = false;
-        buttonText.textContent = "Join Waitlist";
-        spinner.classList.add("hidden");
+        submitBtn.textContent = "Join Waitlist";
     }
 });
 
+
+
 function showResponse(message, colorClass) {
     responseMessage.textContent = message;
-    responseMessage.className = `text-center ${colorClass}`;
+    responseMessage.className = `text-center ${colorClass} `;
     form.classList.add("hidden");
     formResponse.classList.remove("hidden");
     retryContainer.innerHTML = "";

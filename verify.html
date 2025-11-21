@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Email Verification</title>
+
+    <style>
+        body {
+            background: #0d0d0d;
+            color: white;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            padding: 20px;
+            text-align: center;
+        }
+        .box {
+            background: #1a1a1a;
+            padding: 30px;
+            border-radius: 12px;
+            max-width: 400px;
+            width: 100%;
+            border: 1px solid #333;
+        }
+        .success {
+            color: #4ade80;
+        }
+        .error {
+            color: #f87171;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="box">
+        <h2>Email Verification</h2>
+        <p id="verifyMessage">Verifying…</p>
+    </div>
+
+    <script>
+        const SUPABASE_URL = "https://bgfirtvqdaeddqttmjeu.supabase.co";
+
+        async function verifyEmail() {
+            const params = new URLSearchParams(window.location.search);
+            const token = params.get("token");
+
+            const msg = document.getElementById("verifyMessage");
+
+            if (!token) {
+                msg.textContent = "Invalid or missing verification token.";
+                msg.className = "error";
+                return;
+            }
+
+            try {
+                const resp = await fetch(
+                    `${SUPABASE_URL}/functions/v1/verify-email`,
+                    {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ token }),
+                    }
+                );
+
+                const result = await resp.json();
+
+                if (!resp.ok || result.error) {
+                    msg.textContent = "Verification failed. The token may be invalid or expired.";
+                    msg.className = "error";
+                    return;
+                }
+
+                msg.textContent = "Your email has been successfully verified! 🎉";
+                msg.className = "success";
+
+            } catch (err) {
+                msg.textContent = "Something went wrong. Try again later.";
+                msg.className = "error";
+            }
+        }
+
+        verifyEmail();
+    </script>
+
+</body>
+</html>
