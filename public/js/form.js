@@ -1,17 +1,20 @@
+const SUPABASE_URL = 'https://bgfirtvqdaeddqttmjeu.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJnZmlydHZxZGFlZGRxdHRtamV1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM3MDQ1NTYsImV4cCI6MjA3OTI4MDU1Nn0.Cib0nGgjHW2nF64pN-Id4lAdHFsDL36bhRLYrGbzUtU';
+const supabaseDB = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
 const form = document.getElementById("optinForm");
-const submitBtn = document.getElementById("submitBtn");
+const submitBtn = form.querySelector("button[type='submit']");
 const buttonText = document.getElementById("buttonText");
 const spinner = document.getElementById("spinner");
-const retryContainer = document.getElementById("retryContainer");
 const responseMessage = document.getElementById("responseMessage");
 const formResponse = document.getElementById("formResponse");
-
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzLYMAYL4E79J8ioXEWxGjnaR1yhEoVtaBlQW-T5-MczxUVQqJIm4eTtO0L4J1kYkzT0A/exec';
+const retryContainer = document.getElementById("retryContainer");
 
 form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
     const email = form.email.value.trim();
+
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
         showResponse("Please enter a valid email address.", "text-red-500");
         return;
@@ -22,37 +25,34 @@ form.addEventListener("submit", async (e) => {
     spinner.classList.remove("hidden");
 
     try {
-        // Send email as JSON
-        const payload = { email: email };
-        const response = await fetch(SCRIPT_URL, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(payload)
-        });
+        const { data: existing, error: fetchError } = await supabaseDB
+            .from('basedmeal-waitlist')
+            .select('id')
+            .eq('email', email)
+            .maybeSingle();
 
-        const text = await response.text();
-        console.log("STATUS:", response.status);
-        console.log("RAW RESPONSE:", text);
-
-        let data;
-        try {
-            data = JSON.parse(text);
-            console.log("JSON PARSED:", data);
-        } catch (_) {
-            throw new Error("Response was not JSON");
+        if (existing) {
+            throw new Error("This email is already registered.");
         }
 
-        if (data.result === "success") {
-            showResponse("Email successfully saved! Thank you.", "text-green-500");
-            form.reset();
-        } else {
-            const errMsg = data.error || "Failed to save email";
-            throw new Error(errMsg);
+        const { data, error } = await supabaseDB
+            .from('basedmeal-waitlist')
+            .insert([{ email }]);
+
+        if (error) {
+            if (error.message.includes("duplicate key")) {
+                showResponse("This email is already registered.", "text-red-500");
+                return;
+            }
+            throw error;
         }
 
-    } catch (error) {
-        console.error("Error:", error);
-        showResponseWithRetry(`Something went wrong: ${error.message}`, "text-red-500");
+        showResponse("Email successfully saved! Thank you.", "text-green-500");
+        form.reset();
+
+    } catch (err) {
+        console.error(err);
+        showResponseWithRetry(err.message || "Something went wrong.", "text-red-500");
     } finally {
         submitBtn.disabled = false;
         buttonText.textContent = "Join Waitlist";
@@ -60,20 +60,20 @@ form.addEventListener("submit", async (e) => {
     }
 });
 
-function showResponse(message, textColorClass) {
+function showResponse(message, colorClass) {
     responseMessage.textContent = message;
-    responseMessage.className = `text-center ${textColorClass}`;
+    responseMessage.className = `text-center ${colorClass}`;
     form.classList.add("hidden");
     formResponse.classList.remove("hidden");
     retryContainer.innerHTML = "";
 }
 
-function showResponseWithRetry(message, textColorClass) {
-    showResponse(message, textColorClass);
+function showResponseWithRetry(message, colorClass) {
+    showResponse(message, colorClass);
 
     const retryBtn = document.createElement("button");
     retryBtn.textContent = "Retry";
-    retryBtn.className = "mt-3 px-4 py-2 bg-gradient-to-br from-pink-500 to-purple-500 hover:from-pink-400 hover:to-purple-400 text-white rounded transition";
+    retryBtn.className = "mt-3 px-4 py-2 bg-pink-600 text-white rounded hover:bg-pink-700 transition";
 
     retryBtn.addEventListener("click", () => {
         formResponse.classList.add("hidden");
@@ -82,4 +82,4 @@ function showResponseWithRetry(message, textColorClass) {
     });
 
     retryContainer.appendChild(retryBtn);
-} 
+}
