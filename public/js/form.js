@@ -1,7 +1,8 @@
-const RESEND_API_KEY = 're_6Wawp5Z1_JUXHS2QiFiwbBZP7XecJdjwm';
 const SUPABASE_URL = 'https://bgfirtvqdaeddqttmjeu.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJnZmlydHZxZGFlZGRxdHRtamV1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM3MDQ1NTYsImV4cCI6MjA3OTI4MDU1Nn0.Cib0nGgjHW2nF64pN-Id4lAdHFsDL36bhRLYrGbzUtU';
-const supabaseDB = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+const supabaseKey = 'sb_publishable_qlfUQU2yqNqWsACiqSTPGQ_wXh5hE1c';
+
+const supabaseDB = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);  
 
 const form = document.getElementById("optinForm");
 const submitBtn = form.querySelector("button[type='submit']");
@@ -20,78 +21,50 @@ form.addEventListener("submit", async (e) => {
     responseMsg.style.color = "white";
 
     if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
-        responseMsg.textContent = "Please enter a valid email.";
-        responseMsg.style.color = "red";
+        showResponseWithRetry("Please enter a valid email.", "text-red-500");
         return;
     }
 
-    const submitBtn = document.getElementById("submitBtn");
     submitBtn.disabled = true;
     submitBtn.textContent = "Sending...";
 
     try {
-        const { data: existing } = await supabaseDB
-            .from("basedmeal-waitlist")
-            .select("id")
-            .eq("email", email)
-            .maybeSingle();
-
-        if (existing) {
-            responseMsg.textContent = "This email is already registered.";
-            responseMsg.style.color = "red";
-            return;
-        }
-
         const token = crypto.randomUUID();
+        const bodyData = { email, token };
 
-        const { error: insertError } = await supabaseDB
-            .from("basedmeal-waitlist")
-            .insert([{
-                email,
-                verification_token: token,
-                verified: false
-            }]);
+        const response = await fetch(`${SUPABASE_URL}/functions/v1/dynamic-function`, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${SUPABASE_KEY}`,
+                'apikey': supabaseKey,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(bodyData)
+        });
 
-        if (insertError) {
-            responseMsg.textContent = "Failed to save email. Try again.";
-            responseMsg.style.color = "red";
-            return;
+        const data = await response.json();
+        console.log('Response:', data);
+
+        if (!data.success) {
+            showResponseWithRetry(data.message || "Email saved, but failed to send verification email.", "text-red-500");
+        } else {
+            showResponse(data.message || "Verification email sent to your inbox.", "text-green-500");
         }
-
-        const { data: funcResult, error: funcError } = await supabaseDB
-            .functions
-            .invoke("send-verification", {
-                body: { email, token }
-            });
-
-        if (funcError) {
-            responseMsg.textContent =
-                "Email saved, but failed to send verification email.";
-            responseMsg.style.color = "red";
-            return;
-        }
-
-
-        responseMsg.textContent =
-            "Email saved! Check your inbox for a verification link.";
-        responseMsg.style.color = "green";
-        form.reset();
 
     } catch (err) {
-        responseMsg.textContent = err.message || "Something went wrong.";
-        responseMsg.style.color = "red";
+        console.error(err);
+        showResponseWithRetry(err.message || "Something went wrong. Please try again.", "text-red-500");
 
     } finally {
         submitBtn.disabled = false;
         submitBtn.textContent = "Join Waitlist";
     }
-});
-
-
+}
+);
 
 function showResponse(message, colorClass) {
-    responseMessage.textContent = message;
-    responseMessage.className = `text-center ${colorClass} `;
+    responseMsg.textContent = message;
+    responseMsg.className = `text-center ${colorClass}`;
     form.classList.add("hidden");
     formResponse.classList.remove("hidden");
     retryContainer.innerHTML = "";
@@ -108,6 +81,8 @@ function showResponseWithRetry(message, colorClass) {
         formResponse.classList.add("hidden");
         form.classList.remove("hidden");
         form.email.focus();
+        responseMsg.textContent = "";
+        retryContainer.innerHTML = "";
     });
 
     retryContainer.appendChild(retryBtn);
