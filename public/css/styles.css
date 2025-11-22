@@ -16,6 +16,8 @@
     animation: blink-caret 0.75s step-end infinite;
 }
 
+
+
 @keyframes blink-caret {
 
     from,
@@ -45,4 +47,29 @@
 
 .feature-illustration {
     filter: drop-shadow(0 4px 8px rgba(251, 191, 36, 0.2));
+}
+
+
+.shimmer {
+    position: absolute;
+    top: 0;
+    left: -150%;
+    width: 150%;
+    height: 100%;
+    background: linear-gradient(
+        120deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.15) 50%,
+        transparent 100%
+    );
+    animation: shimmer-slide 5s infinite;
+}
+
+@keyframes shimmer-slide {
+    0% {
+        left: -150%;
+    }
+    100% {
+        left: 150%;
+    }
 }

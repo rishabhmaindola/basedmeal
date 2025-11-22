@@ -38,6 +38,23 @@ function runAnimations() {
         delay: 0.6,
         ease: 'power2.out'
     });
+
+
+    gsap.to("#animatedQuestion", {
+        rotate: 15,
+        duration: 2.5,
+        repeat: -1,
+        yoyo: true,
+        ease: "power1.inOut",
+        keyframes: [
+            { rotate: 0 },
+            { rotate: 15 },
+            { rotate: -15 },
+            { rotate: 10 },
+            { rotate: -10 },
+            { rotate: 0 }
+        ]
+    });
 }
 
 window.addEventListener('pageshow', (event) => {

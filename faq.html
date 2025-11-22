@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <meta name="description"
+        content="BasedMeal is a personalized AI Meal Planning App that helps you enhance your fitness, track nutrition, and manage your diet easily. Join the waitlist today!">
+    <meta name="keywords"
+        content="ai meal planner, meal planning app, healthy meals, personalized meal plans, diet tracker, nutrition app, meal prep, calorie tracker, vegan meal planner, keto diet app, weight loss app, fitness app">
+    <meta name="author" content="BasedMeal Team">
+
+    <meta property="og:title" content="BasedMeal | Learn More">
+    <meta property="og:description"
+        content="BasedMeal is a personalized AI Meal Planning App that helps you enhance your fitness, track nutrition, and manage your diet easily. Join the waitlist today!">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://basedmeal.com">
+    <meta property="og:image" content="https://basedmeal.com/public/assets/bm-logo.png">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="BasedMeal | Join The Waitlist">
+    <meta name="twitter:description"
+        content="BasedMeal is a personalized AI Meal Planning App that helps you enhance your fitness, track nutrition, and manage your diet easily. Join the waitlist today!">
+    <meta name="twitter:image" content="https://basedmeal.com/public/assets/bm-logo.png">
+
+    <title>BasedMeal | Learn More</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="./public/css/styles.css">
+    <link rel="icon" type="image/png" sizes="32x32" href="./public/assets/bm-favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap" rel="stylesheet">
+</head>
+
+<body class="bg-gradient-to-b from-zinc-900 to-black text-gray-100">
+
+    <div id="splashScreen"
+        class="fixed inset-0 flex flex-col items-center justify-center w-full space-y-4 bg-black z-50 opacity-100">
+        <div class="w-16 h-16 sm:w-24 sm:h-24 rounded-2xl bg-black flex items-center justify-center shadow-lg ">
+            <img id="splashLogo" src="./public/assets/bm-logo.png" alt="BasedMeal logo"
+                class="w-12 h-12 sm:w-18 sm:h-18 object-contain" />
+        </div>
+    </div>
+
+    <header class="p-4 sm:p-5 flex items-center justify-between bg-zinc-900">
+        <div class="flex items-center px-2 sm:px-5">
+            <h1 class="text-2xl sm:text-3xl font-bold tracking-wide text-white flex">based<p
+                    class="text-yellow-300 text-2xl sm:text-3xl">Meal</p>
+            </h1>
+        </div>
+        <button onclick="document.getElementById('waitlist').scrollIntoView({ behavior: 'smooth' });" 
+            class="bg-white rounded-full font-semibold text-black hover:bg-gray-300 hover:ring-yellow-300 px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm">
+            Join Waitlist
+        </button>
+    </header>
+
+
+    <section class="px-4 sm:px-6 min-h-screen">
+        <div id="faq" class="container px-4 py-16 mx-auto sm:px-8 space-y-12">
+    
+            <h1 class="text-2xl font-semibold text-white lg:text-3xl">Frequently Asked Questions</h1>
+
+            <hr class="my-12 border-gray-700">
+
+
+            <div class="space-y-8">
+                <div class="faq-item">
+                    <button class="flex items-center justify-between w-full focus:outline-none">
+                        <h1 class="text-md text-white text-left">What is BasedMeal?</h1>
+                        <svg class="flex-shrink-0 w-5 h-5 sm:w-6 sm:h-6 text-yellow-300 transition-transform duration-300"
+                            fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v12m6-6H6">
+                            </path>
+                        </svg>
+                    </button>
+
+                    <div class="faq-content mt-4 hidden">
+                        <div class="flex">
+                            <span class="border-l-2 border-yellow-300"></span>
+                            <p class="max-w-3xl px-4 text-gray-300 text-sm sm:text-base">
+                                BasedMeal is an AI-powered nutrition platform that creates personalized meal plans based
+                                on
+                                your health goals, dietary preferences, and lifestyle. Our technology helps you make
+                                better food choices and achieve sustainable results.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <hr class="my-12 border-gray-700">
+
+
+                <div class="faq-item">
+                    <button class="flex items-center justify-between w-full focus:outline-none">
+                        <h1 class="text-md text-white text-left">Is the nutrition data (calories, macros, etc.) in
+                            BasedMeal accurate and reliable?
+                        </h1>
+                        <svg class="flex-shrink-0 w-5 h-5 sm:w-6 sm:h-6 text-yellow-300 transition-transform duration-300"
+                            fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v12m6-6H6">
+                            </path>
+                        </svg>
+                    </button>
+
+                    <div class="faq-content mt-4 hidden">
+                        <div class="flex">
+                            <span class="border-l-2 border-yellow-300"></span>
+                            <p class="max-w-3xl px-4 text-gray-300 text-sm sm:text-base">
+                                Yes. All nutritional values in BasedMeal — including calories, protein, carbs, and fats
+                                —
+                                are sourced from verified global food databases such as the USDA FoodData Central and
+                                other
+                                standardized nutrition sources.
+                                This ensures that every ingredient and meal in your plan reflects real, evidence-based
+                                nutrition data,
+                                so you can track your intake with confidence and consistency.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <hr class="my-12 border-gray-700">
+
+
+                <div class="faq-item">
+                    <button class="flex items-center justify-between w-full focus:outline-none">
+                        <h1 class="text-md text-white text-left">How is BasedMeal different from other nutrition apps?
+                        </h1>
+                        <svg class="flex-shrink-0 w-5 h-5 sm:w-6 sm:h-6 text-yellow-300 transition-transform duration-300"
+                            fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v12m6-6H6">
+                            </path>
+                        </svg>
+                    </button>
+
+                    <div class="faq-content mt-4 hidden">
+                        <div class="flex">
+                            <span class="border-l-2 border-yellow-300"></span>
+                            <p class="max-w-3xl px-4 text-gray-300 text-sm sm:text-base">
+                                Unlike other nutrition apps, BasedMeal uses advanced AI to create truly personalized
+                                meal
+                                plans that adapt to your preferences, goals, and even your daily schedule. We focus on
+                                sustainable habits rather than restrictive diets.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <hr class="my-12 border-gray-700">
+
+
+                <div class="faq-item">
+                    <button class="flex items-center justify-between w-full focus:outline-none">
+                        <h1 class="text-md text-white text-left">Do I need to be on a specific diet to use BasedMeal?
+                        </h1>
+                        <svg class="flex-shrink-0 w-5 h-5 sm:w-6 sm:h-6 text-yellow-300 transition-transform duration-300"
+                            fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v12m6-6H6">
+                            </path>
+                        </svg>
+                    </button>
+
+                    <div class="faq-content mt-4 hidden">
+                        <div class="flex">
+                            <span class="border-l-2 border-yellow-300"></span>
+                            <p class="max-w-3xl px-4 text-gray-300 text-sm sm:text-base">
+                                Not at all! BasedMeal works with any dietary preference or restriction—whether you're
+                                vegan, keto, gluten-free, or just trying to eat healthier. We personalize our
+                                recommendations based on your specific needs and preferences.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <hr class="my-12 border-gray-700">
+
+
+                <div class="faq-item">
+                    <button class="flex items-center justify-between w-full focus:outline-none">
+                        <h1 class="text-md text-white text-left">How does the waitlist work?</h1>
+                        <svg class="flex-shrink-0 w-5 h-5 sm:w-6 sm:h-6 text-yellow-300 transition-transform duration-300"
+                            fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v12m6-6H6">
+                            </path>
+                        </svg>
+                    </button>
+
+                    <div class="faq-content mt-4 hidden">
+                        <div class="flex">
+                            <span class="border-l-2 border-yellow-300"></span>
+                            <p class="max-w-3xl px-4 text-gray-300 text-sm sm:text-base">
+                                By joining our waitlist, you'll be among the first to get access when BasedMeal
+                                launches.
+                                Early users will receive special perks, including discounted pricing and priority
+                                support. We'll also send you exclusive nutrition tips while you wait.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <footer class="w-full bg-black border-t-2 border-gray-400 px-6 py-10 text-gray-200 relative">
+        <div class="absolute right-20 top-0 opacity-20">
+            <svg version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"
+                class="w-56 h-56 text-yellow-400" fill="currentColor">
+                <g>
+                    <path
+                        d="M27,32h-9.1c-1.5,0-2.8-0.6-3.9-1.6L0.3,16.7c-0.4-0.4-0.4-1,0-1.4s1-0.4,1.4,0L15.4,29c0.7,0.6,1.5,1,2.5,1H27 c0.6,0,1,0.4,1,1S27.6,32,27,32z">
+                    </path>
+                </g>
+                <path
+                    d="M27.1,23H17c-0.6,0-1-0.4-1-1s0.4-1,1-1h5.8c-0.4-0.3-0.7-0.6-1-1H15c-0.6,0-1-0.4-1-1s0.4-1,1-1h5.6 c-0.4-1.1-0.6-2.4-0.6-4c0-0.3-0.1-0.5-0.3-0.7C19.5,13.1,19.3,13,19,13h-1c-3.3,0-7-3.7-7-7c0-0.4-0.3-0.8-0.6-0.9 C10,4.9,9.5,5,9.2,5.3l-7,8c-0.3,0.4-0.3,1,0,1.4L15,27.4c1,1,2.4,1.6,3.9,1.6H27c0.5,0,0.9-0.3,1-0.8l0.4-1.8 c0.2-0.9,0.1-1.8-0.4-2.5C27.8,23.6,27.5,23.3,27.1,23z M10.5,18C9.1,18,8,16.9,8,15.5S9.1,13,10.5,13s2.5,1.1,2.5,2.5 S11.9,18,10.5,18z">
+                </path>
+                <g>
+                    <path
+                        d="M19,15.7c-0.4,0-0.8-0.3-1-0.7c-0.7-2.6,0-5.5,2-7.4l7.3-7.3c0.4-0.4,1-0.4,1.4,0s0.4,1,0,1.4L21.4,9 c-1.4,1.4-2,3.5-1.5,5.5c0.1,0.5-0.2,1.1-0.7,1.2C19.2,15.7,19.1,15.7,19,15.7z">
+                    </path>
+                </g>
+                <g>
+                    <path
+                        d="M10,8C9.6,8,9.2,7.7,9.1,7.3C8.9,6.8,9.2,6.2,9.7,6.1c1.7-0.6,3.2-1.7,4.1-3.3l1.4-2.3C15.4,0,16-0.1,16.5,0.1 C17,0.4,17.1,1,16.9,1.5l-1.4,2.3c-1.2,2-3,3.4-5.2,4.1C10.2,8,10.1,8,10,8z">
+                    </path>
+                </g>
+            </svg>
+        </div>
+
+        <div class="max-w-7xl mx-auto flex flex-col items-center space-y-6">
+
+            <a href="/" class="flex items-center mb-4">
+                <div class="flex items-center justify-center bg-black relative">
+                    <div class="absolute w-24 h-24 bg-black rounded-full blur-3xl z-0 animate-pulse"></div>
+                    <img src="./public/assets/bm-logo.png" alt="BasedMeal Logo"
+                        class="w-24 h-24 relative z-10 drop-shadow-[0_0_40px_rgba(255,255,255,0.8)]" />
+                </div>
+            </a>
+
+            <p class="text-sm text-center text-zinc-200">
+                Designed to help you grow. Your wellness journey starts here.
+            </p>
+
+            <div class="text-sm text-center text-gray-300 mt-2">
+                &copy; 2025 BasedMeal. All rights reserved.
+            </div>
+
+            <ul class="flex flex-wrap justify-center items-center gap-6 py-4">
+                <li>
+                    <a href="https://instagram.com" target="_blank" rel="noopener noreferrer"
+                        class="flex items-center justify-center w-10 h-10 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 text-white hover:scale-110 transition-all duration-200 shadow-md hover:shadow-lg"
+                        aria-label="Visit our Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://x.com" target="_blank" rel="noopener noreferrer"
+                        class="flex items-center justify-center w-10 h-10 rounded-full bg-gradient-to-r from-zinc-800 to-zinc-900 text-white hover:scale-110 transition-all duration-200 shadow-md hover:shadow-lg"
+                        aria-label="Visit our X profile">
+                        <i class="fab fa-x "></i>
+                    </a>
+                </li>
+
+            </ul>
+
+            <ul class="flex flex-wrap justify-center items-center gap-6 text-xs font-medium uppercase tracking-wide">
+                <li><a href="/" class="hover:text-white text-gray-400 transition-colors duration-200">Home</a></li>
+                <li><a href="/faq.html" class="hover:text-white text-gray-400 transition-colors duration-200">FAQs</a></li>
+            </ul>
+        </div>
+
+    </footer>
+
+
+
+    <script src="./public/js/faq.js" async defer></script>
+    <script src="./public/js/animation.js" async defer></script>
+
+</body>
+
+</html>
