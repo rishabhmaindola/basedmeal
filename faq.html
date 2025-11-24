@@ -31,7 +31,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="./public/assets/bm-favicon.webp">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik+Glitch&family=League+Spartan:wght@100..900&family=Passion+One:wght@400;700;900&family=Rowdies:wght@300;400;700&display=swap" rel="stylesheet">
     <script type="application/ld+json">
         {
           "@context": "https://schema.org",
@@ -109,18 +109,18 @@
 
 <body class="bg-gradient-to-b from-zinc-900 to-black text-gray-100">
 
-    <div id="splashScreen"
+    <!-- <div id="splashScreen"
         class="fixed inset-0 flex flex-col items-center justify-center w-full space-y-4 bg-black z-50 opacity-100">
         <div class="w-16 h-16 sm:w-24 sm:h-24 rounded-2xl bg-black flex items-center justify-center shadow-lg ">
             <img id="splashLogo" src="./public/assets/bm-logo.webp" alt="BasedMeal logo"
                 class="w-12 h-12 sm:w-18 sm:h-18 object-contain" />
         </div>
-    </div>
+    </div> -->
 
     <header class="p-4 sm:p-5 flex items-center justify-between bg-zinc-900">
         <div class="flex items-center px-2 sm:px-5">
-            <h1 class="text-2xl sm:text-3xl font-bold tracking-wide text-white flex">based<p
-                    class="text-yellow-300 text-2xl sm:text-3xl">Meal</p>
+            <h1 class="text-2xl sm:text-3xl font-semibold tracking-wider font-rowdies text-white flex">Based<p
+                    class="text-yellow-300 font-rowdies  text-2xl sm:text-3xl">Meal</p>
             </h1>
         </div>
         <button onclick="document.getElementById('waitlist').scrollIntoView({ behavior: 'smooth' });"
@@ -133,7 +133,7 @@
     <section class="px-4 sm:px-6 min-h-screen">
         <div id="faq" class="container px-4 py-16 mx-auto sm:px-8 space-y-12">
 
-            <h1 class="text-2xl font-semibold text-white lg:text-3xl">Frequently Asked Questions</h1>
+            <h1 class="text-4xl font-semibold text-white text-center lg:text-3xl">Frequently Asked Questions</h1>
 
             <hr class="my-12 border-gray-700">
 
@@ -277,73 +277,79 @@
     </section>
 
 
-    <footer class="w-full bg-black border-t-2 border-gray-400 px-6 py-10 text-gray-200 relative">
+    <footer class="w-full bg-black  px-6 py-12 text-gray-200 relative overflow-hidden">
+
         <div class="absolute right-20 top-0 opacity-20">
-            <svg version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"
-                class="w-56 h-56 text-yellow-400" fill="currentColor">
-                <g>
-                    <path
-                        d="M27,32h-9.1c-1.5,0-2.8-0.6-3.9-1.6L0.3,16.7c-0.4-0.4-0.4-1,0-1.4s1-0.4,1.4,0L15.4,29c0.7,0.6,1.5,1,2.5,1H27 c0.6,0,1,0.4,1,1S27.6,32,27,32z">
+            <svg fill="#000000" viewBox="0 0 24 24" id="research-left" data-name="Line Color"
+                xmlns="http://www.w3.org/2000/svg" class="icon line-color w-56 h-56 ">
+                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                <g id="SVGRepo_iconCarrier">
+                    <path id="secondary" d="M7,17V12m4,5V15M21,15l-2.83-2.83M13,10a3,3,0,1,0,3-3A3,3,0,0,0,13,10Z"
+                        style="fill: none; stroke: #FFEE58; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;">
                     </path>
-                </g>
-                <path
-                    d="M27.1,23H17c-0.6,0-1-0.4-1-1s0.4-1,1-1h5.8c-0.4-0.3-0.7-0.6-1-1H15c-0.6,0-1-0.4-1-1s0.4-1,1-1h5.6 c-0.4-1.1-0.6-2.4-0.6-4c0-0.3-0.1-0.5-0.3-0.7C19.5,13.1,19.3,13,19,13h-1c-3.3,0-7-3.7-7-7c0-0.4-0.3-0.8-0.6-0.9 C10,4.9,9.5,5,9.2,5.3l-7,8c-0.3,0.4-0.3,1,0,1.4L15,27.4c1,1,2.4,1.6,3.9,1.6H27c0.5,0,0.9-0.3,1-0.8l0.4-1.8 c0.2-0.9,0.1-1.8-0.4-2.5C27.8,23.6,27.5,23.3,27.1,23z M10.5,18C9.1,18,8,16.9,8,15.5S9.1,13,10.5,13s2.5,1.1,2.5,2.5 S11.9,18,10.5,18z">
-                </path>
-                <g>
-                    <path
-                        d="M19,15.7c-0.4,0-0.8-0.3-1-0.7c-0.7-2.6,0-5.5,2-7.4l7.3-7.3c0.4-0.4,1-0.4,1.4,0s0.4,1,0,1.4L21.4,9 c-1.4,1.4-2,3.5-1.5,5.5c0.1,0.5-0.2,1.1-0.7,1.2C19.2,15.7,19.1,15.7,19,15.7z">
-                    </path>
-                </g>
-                <g>
-                    <path
-                        d="M10,8C9.6,8,9.2,7.7,9.1,7.3C8.9,6.8,9.2,6.2,9.7,6.1c1.7-0.6,3.2-1.7,4.1-3.3l1.4-2.3C15.4,0,16-0.1,16.5,0.1 C17,0.4,17.1,1,16.9,1.5l-1.4,2.3c-1.2,2-3,3.4-5.2,4.1C10.2,8,10.1,8,10,8z">
+                    <path id="primary" d="M17,17v3a1,1,0,0,1-1,1H4a1,1,0,0,1-1-1V4A1,1,0,0,1,4,3H16"
+                        style="fill: none; stroke: #ffffff; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;">
                     </path>
                 </g>
             </svg>
         </div>
 
-        <div class="max-w-7xl mx-auto flex flex-col items-center space-y-6">
+        <div class="max-w-7xl mx-auto w-full flex flex-col lg:flex-row justify-between gap-12 relative z-10">
 
-            <a href="/" class="flex items-center mb-4">
-                <div class="flex items-center justify-center bg-black relative">
-                    <div class="absolute w-24 h-24 bg-black rounded-full blur-3xl z-0 animate-pulse"></div>
-                    <img src="./public/assets/bm-logo.webp" alt="BasedMeal Logo"
-                        class="w-24 h-24 relative z-10 drop-shadow-[0_0_40px_rgba(255,255,255,0.8)]" />
-                </div>
-            </a>
+            <div class="flex flex-col space-y-6 flex-1">
+                <p class="text-2xl font-semibold text-zinc-200 leading-snug">
+                    Designed to help you grow.<br />
+                    Your wellness journey starts here.
+                </p>
 
-            <p class="text-sm text-center text-zinc-200">
-                Designed to help you grow. Your wellness journey starts here.
-            </p>
+                <ul class="flex gap-4 mt-2">
+                    <li>
+                        <a href="https://instagram.com" target="_blank"
+                            class="flex items-center justify-center w-10 h-10 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 hover:scale-110 transition-transform shadow-md">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://x.com" target="_blank"
+                            class="flex items-center justify-center w-10 h-10 rounded-full bg-gradient-to-r from-zinc-800 to-zinc-900 hover:scale-110 transition-transform shadow-md">
+                            <i class="fab fa-x"></i>
+                        </a>
+                    </li>
+                </ul>
 
-            <div class="text-sm text-center text-gray-300 mt-2">
-                &copy; 2025 BasedMeal. All rights reserved.
+                <ul class="flex gap-6 text-xs uppercase tracking-wide text-gray-400">
+                    <li><a href="/privacy-policy" class="hover:text-white">Privacy</a></li>
+                    <li><a href="/terms-conditions" class="hover:text-white">Terms</a></li>
+                </ul>
+
+                <div class="text-sm text-gray-400">&copy; 2025 BasedMeal. All rights reserved.</div>
             </div>
 
-            <ul class="flex flex-wrap justify-center items-center gap-6 py-4">
-                <li>
-                    <a href="https://instagram.com" target="_blank" rel="noopener noreferrer"
-                        class="flex items-center justify-center w-10 h-10 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 text-white hover:scale-110 transition-all duration-200 shadow-md hover:shadow-lg"
-                        aria-label="Visit our Instagram">
-                        <i class="fab fa-instagram"></i>
-                    </a>
-                </li>
-                <li>
-                    <a href="https://x.com" target="_blank" rel="noopener noreferrer"
-                        class="flex items-center justify-center w-10 h-10 rounded-full bg-gradient-to-r from-zinc-800 to-zinc-900 text-white hover:scale-110 transition-all duration-200 shadow-md hover:shadow-lg"
-                        aria-label="Visit our X profile">
-                        <i class="fab fa-x "></i>
-                    </a>
-                </li>
-
-            </ul>
-
-            <ul class="flex flex-wrap justify-center items-center gap-6 text-xs font-medium uppercase tracking-wide">
-                <li><a href="/" class="hover:text-white text-gray-400 transition-colors duration-200">Home</a></li>
-                <li><a href="/faq.html" class="hover:text-white text-gray-400 transition-colors duration-200">FAQs</a>
-                </li>
-            </ul>
+            <div class="flex-1 flex items-start justify-center">
+                <ul class="grid grid-cols-2  gap-4 text-sm tracking-wide">
+                    <li><a href="/" class="hover:underline text-gray-300 transition-colors duration-200">Home</a></li>
+                    <li><a href="/faq.html"
+                            class="hover:underline text-gray-300 transition-colors duration-200">FAQs</a></li>
+                </ul>
+            </div>
         </div>
+
+        <section class="mt-16 flex items-center justify-center">
+            <div class="block sm:block md:hidden lg:hidden xl:hidden flex items-center justify-center">
+                <a href="/" class="flex items-center mb-4">
+                    <div class="flex items-center justify-center bg-black relative">
+                        <div class="absolute w-24 h-24 bg-black rounded-full blur-3xl z-0 animate-pulse"></div>
+                        <img src="./public/assets/bm-logo.webp" loading="lazy" alt="BasedMeal Logo"
+                            class="w-24 h-24 relative z-10 drop-shadow-[0_0_40px_rgba(255,255,255,0.8)] bg-transparent" />
+                    </div>
+                </a>
+            </div>
+
+            <h1 class="hidden sm:hidden md:block lg:block xl:block font-rowdies text-white text-8xl font-bold uppercase tracking-widest">
+                Based<span class="text-yellow-300">Meal</span>
+            </h1>
+        </section>
 
     </footer>
 

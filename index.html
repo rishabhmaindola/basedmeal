@@ -33,7 +33,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="./public/assets/bm-favicon.webp">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik+Glitch&family=League+Spartan:wght@100..900&family=Passion+One:wght@400;700;900&family=Rowdies:wght@300;400;700&display=swap" rel="stylesheet">
     <script type="application/ld+json">
         {
           "@context": "https://schema.org",
@@ -62,8 +62,8 @@
 
     <header class="p-4 sm:p-5 flex items-center justify-between bg-zinc-900">
         <div class="flex items-center px-2 sm:px-5">
-            <h1 class="text-2xl sm:text-3xl font-bold tracking-wide text-white flex">based<p
-                    class="text-yellow-300 text-2xl sm:text-3xl">Meal</p>
+            <h1 class="text-2xl sm:text-3xl font-semibold tracking-wider font-rowdies text-white flex">Based<p
+                    class="text-yellow-300 font-rowdies  text-2xl sm:text-3xl">Meal</p>
             </h1>
         </div>
         <button onclick="document.getElementById('waitlist').scrollIntoView({ behavior: 'smooth' });"
@@ -78,7 +78,8 @@
             class="absolute right-1/4 top-1/2 transform -translate-y-1/3 w-[200px] h-[200px] sm:w-[300px] sm:h-[300px] bg-zinc-200 opacity-20 rounded-full blur-3xl pointer-events-none z-0">
         </div>
         <div class="max-w-lg w-full items-center justify-center text-center space-y-6 sm:space-y-10 relative z-10">
-            <h1 id="headline" class="text-2xl sm:text-3xl md:text-5xl font-bold text-center sm:text-left text-zinc-200">
+            <h1 id="headline"
+                class="text-2xl font-league tracking-wide sm:text-3xl md:text-5xl font-bold text-center sm:text-left text-zinc-200">
                 Personalized Nutrition
                 Powered
                 By <span
@@ -89,7 +90,7 @@
                 class="text-lg sm:text-xl md:text-2xl text-zinc-200 font-semibold tracking-wider text-center sm:text-left uppercase">
                 India's
                 first
-                <strong class="text-yellow-300">AI Meal Planner</strong>
+                <strong class="text-yellow-300 ">AI Meal Planner</strong>
             </p>
 
             <div class="space-y-4">
@@ -506,23 +507,9 @@
         </div>
     </section>
 
-    <!-- <section class="w-full min-h-screen flex items-center justify-center bg-black px-6">
-        <h1 class="font-[League_Spartan] 
-        w-full
-                   text-white 
-                   text-6xl sm:text-7xl md:text-8xl lg:text-[10rem] 
-                   font-extrabold 
-                   text-center
-                   leading-none 
-                   tracking-widest 
-                   uppercase">
-            Based<span class="text-yellow-300">Meal</span>
-        </h1>
-    </section> -->
-
 
     <div class="flex flex-col items-center justify-center py-10 px-4">
-        <span class="flex items-center justify-center uppercase font-[League_Spartan] font-bold text-zinc-100 tracking-wide
+        <span class="flex items-center justify-center uppercase font-league font-bold text-zinc-100 tracking-wide
                    text-2xl sm:text-3xl md:text-4xl lg:text-4xl xl:text-4xl text-center">
             Let <span class="text-purple-500 px-2">AI</span> Plan your Meals.
         </span>
@@ -830,7 +817,8 @@
     </section>
 
 
-    <footer class="w-full bg-black border-t-2 border-gray-400 px-6 py-10 text-gray-200 relative">
+    <footer class="w-full bg-black  px-6 py-12 text-gray-200 relative overflow-hidden">
+
         <div class="absolute right-20 top-0 opacity-20">
             <svg version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"
                 class="w-56 h-56 text-yellow-400" fill="currentColor">
@@ -854,67 +842,67 @@
                 </g>
             </svg>
         </div>
-
-        <div class="max-w-7xl mx-auto flex flex-col items-center space-y-6">
-
-            <a href="/" class="flex items-center mb-4">
-                <div class="flex items-center justify-center bg-black relative">
-                    <div class="absolute w-24 h-24 bg-black rounded-full blur-3xl z-0 animate-pulse"></div>
-                    <img src="./public/assets/bm-logo.webp" loading="lazy" alt="BasedMeal Logo"
-                        class="w-24 h-24 relative z-10 drop-shadow-[0_0_40px_rgba(255,255,255,0.8)] bg-transparent" />
-                </div>
-            </a>
-
-            <p class="text-sm text-center text-zinc-200">
-                Designed to help you grow. Your wellness journey starts here.
-            </p>
-
-            <div class="text-sm text-center text-gray-300 mt-2">
-                &copy; 2025 BasedMeal. All rights reserved.
+    
+        <div class="max-w-7xl mx-auto w-full flex flex-col lg:flex-row justify-between gap-12 relative z-10">
+    
+            <div class="flex flex-col space-y-6 flex-1">
+                <p class="text-2xl font-semibold text-zinc-200 leading-snug">
+                    Designed to help you grow.<br />
+                    Your wellness journey starts here.
+                </p>
+    
+                <ul class="flex gap-4 mt-2">
+                    <li>
+                        <a href="https://instagram.com" target="_blank"
+                            class="flex items-center justify-center w-10 h-10 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 hover:scale-110 transition-transform shadow-md">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://x.com" target="_blank"
+                            class="flex items-center justify-center w-10 h-10 rounded-full bg-gradient-to-r from-zinc-800 to-zinc-900 hover:scale-110 transition-transform shadow-md">
+                            <i class="fab fa-x"></i>
+                        </a>
+                    </li>
+                </ul>
+    
+                <ul class="flex gap-6 text-xs uppercase tracking-wide text-gray-400">
+                    <li><a href="/privacy-policy" class="hover:text-white">Privacy</a></li>
+                    <li><a href="/terms-conditions" class="hover:text-white">Terms</a></li>
+                </ul>
+    
+                <div class="text-sm text-gray-400">&copy; 2025 BasedMeal. All rights reserved.</div>
+            </div>
+    
+            <div class="flex-1 flex items-start justify-center">
+                <ul class="grid grid-cols-2  gap-4 text-sm tracking-wide">
+                    <li><a href="/" class="hover:underline text-gray-300 transition-colors duration-200">Home</a></li>
+                    <li><a href="#waitlist" class="hover:underline text-gray-300 transition-colors duration-200">Join waitlist</a></li>
+                    <li><a href="#learnMore" class="hover:underline text-gray-300 transition-colors duration-200">Features</a></li>
+                    <li><a href="#how-it-works" class="hover:underline text-gray-300 transition-colors duration-200">How it works</a></li>
+                    <li><a href="/faq.html" class="hover:underline text-gray-300 transition-colors duration-200">FAQs</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <section class="mt-16 flex items-center justify-center">
+            <div class="block sm:block md:hidden lg:hidden xl:hidden flex items-center justify-center">
+                <a href="/" class="flex items-center mb-4">
+                    <div class="flex items-center justify-center bg-black relative">
+                        <div class="absolute w-24 h-24 bg-black rounded-full blur-3xl z-0 animate-pulse"></div>
+                        <img src="./public/assets/bm-logo.webp" loading="lazy" alt="BasedMeal Logo"
+                            class="w-24 h-24 relative z-10 drop-shadow-[0_0_40px_rgba(255,255,255,0.8)] bg-transparent" />
+                    </div>
+                </a>
             </div>
 
-            <ul class="flex flex-wrap justify-center items-center gap-6 py-4">
-                <li>
-                    <a href="https://instagram.com" target="_blank" rel="noopener noreferrer"
-                        class="flex items-center justify-center w-10 h-10 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 text-white hover:scale-110 transition-all duration-200 shadow-md hover:shadow-lg"
-                        aria-label="Visit our Instagram">
-                        <i class="fab fa-instagram"></i>
-                    </a>
-                </li>
-                <li>
-                    <a href="https://x.com" target="_blank" rel="noopener noreferrer"
-                        class="flex items-center justify-center w-10 h-10 rounded-full bg-gradient-to-r from-zinc-800 to-zinc-900 text-white hover:scale-110 transition-all duration-200 shadow-md hover:shadow-lg"
-                        aria-label="Visit our X profile">
-                        <i class="fab fa-x "></i>
-                    </a>
-                </li>
-
-            </ul>
-
-            <ul class="flex flex-wrap justify-center items-center gap-6 text-xs font-medium uppercase tracking-wide">
-                <li><a href="/" class="hover:text-white text-gray-400 transition-colors duration-200">Home</a></li>
-                <li><a href="#waitlist" class="hover:text-white text-gray-400 transition-colors duration-200">Join
-                        waitlist</a></li>
-                <li><a href="#how-it-works" class="hover:text-white text-gray-400 transition-colors duration-200">How it
-                        works</a></li>
-                <li><a href="#learnMore"
-                        class="hover:text-white text-gray-400 transition-colors duration-200">Features</a></li>
-                <li><a href="/faq.html" class="hover:text-white text-gray-400 transition-colors duration-200">FAQs</a>
-                </li>
-            </ul>
-
-            <!-- <ul
-                class="flex flex-wrap justify-center items-center gap-6 text-xs font-medium uppercase tracking-wide mt-4">
-                <li><a href="/terms-conditions"
-                        class="hover:text-gray-400 text-gray-500 transition-colors duration-200">Terms & Conditions</a>
-                </li>
-                <li><a href="/privacy-policy"
-                        class="hover:text-gray-400 text-gray-500 transition-colors duration-200">Privacy Policy</a></li>
-            </ul> -->
-
-        </div>
-
+            <h1 class="hidden sm:hidden md:block lg:block xl:block font-rowdies text-white text-8xl font-bold uppercase tracking-widest">
+                Based<span class="text-yellow-300">Meal</span>
+            </h1>
+        </section>
+    
     </footer>
+    
 
 
 
